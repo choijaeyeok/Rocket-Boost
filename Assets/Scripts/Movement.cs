@@ -40,11 +40,13 @@ public class Movement : MonoBehaviour
             //transform.up은 게임 오브젝트의 그냥 위, 게임 오브젝트가 기울어지던 말던 그냥 위로감
             //Time.deltaTime: 물리 연산이 아닌, 게임 로직에서 프레임 독립적인 이동이나 애니메이션 등을 만들 때 사용.
             //Time.fixedDeltaTime: 물리 연산, 예를 들어 힘 적용이나 속도 같은 물리적인 요소를 다룰 때 사용.
-          
+       
             if (!audioSource.isPlaying)//오디오가 겹치지 않게 오디오가 나오지 않을때만 오디오가 나오게 하는 코드 (오디오가 하나만 나오게)
             {
-                audioSource.PlayOneShot(mainEngine);     
-          }
+               
+                audioSource.PlayOneShot(mainEngine);// 배경음악처럼 계속 유지될 소리 → Play()
+                                                                                          //효과음처럼 빠르게 여러 번 반복될 소리 → PlayOneShot()
+            }
         
         }
         else

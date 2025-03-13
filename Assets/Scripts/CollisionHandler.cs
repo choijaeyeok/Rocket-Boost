@@ -6,13 +6,18 @@ public class CollisionHandler : MonoBehaviour
     [SerializeField] float LevelLoadDelay = 2f;
     [SerializeField] AudioClip success;
     [SerializeField] AudioClip crash;
+    
     AudioSource audioSource;
+
+    bool isControllable = true;
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
     }
     private void OnCollisionEnter(Collision other)//물체와 부딪히면 OnCollisionEnter() 메서드가 호출
     {
+        if (!isControllable) { return; }//isControllable 변수가 false일 때 OnCollisionEnter 함수의 실행을 즉시 중단하는 역할
+                                        //if문 안에서 return;이 실행되면, 그 함수는 바로 끝. 즉, 그 아래 코드들이 실행되지 않는다
         switch (other.gameObject.tag)
         {
             case "Friendly":
@@ -33,13 +38,18 @@ public class CollisionHandler : MonoBehaviour
 
     void StartSuccessSequence()
     {
-        
+        isControllable = false; //  if (!isControllable) { return; }는 isControllable = false;일 때만 실행되니깐 isControllable = false;가 필요함  
+                                //로켓의 상태를 명시적으로 멈추게 할 수 있어 충돌 후 소리 중복 재생을 방지할 수 있습니다.
+                                //   GetComponent<Movement>().enabled = false;는 로켓이 더 이상 움직이지 않게 되지만, 충돌 이벤트가 계속 감지됨
+        audioSource.PlayOneShot(success);
         GetComponent<Movement>().enabled = false; //내가 작성한 Movement 코드를 비활성화시켜 Finish에 도착하면 못 움직임
         Invoke("LoadNextLevel", LevelLoadDelay);//Finish에 도착 후 LevelLoadDelay가 2초니깐 2초뒤에 LoadNextLevel()매서드(다음 단계) 호출
     }
 
     void StartCrashSequcence() //StartCrashSequcence() 컨트롤 . 눌러서 매서드 생성 클릭하면 나타남
     {
+        isControllable = false;
+        audioSource.PlayOneShot(crash);
         GetComponent<Movement>().enabled = false;// 내가 작성한 Movement 코드를 비활성화시켜 물체와 부딪힌 후 못 움직임
         Invoke("ReloadLevel", LevelLoadDelay);// 부딪힌 후 LevelLoadDelay가 2초니깐 2초뒤에 ReloadLevel()매서드(재시작) 호출                                      
     }
@@ -62,8 +72,10 @@ public class CollisionHandler : MonoBehaviour
     {
         int currentScene = SceneManager.GetActiveScene().buildIndex; //현재 활성화된 씬의 인덱스 번호를 가져옴
                                                                                 //buildIndex를 사용하면 씬의 이름을 직접 지정하지 않고, 인덱스 번호로 씬을 로드하거나 관리할 수 있다
-        SceneManager.LoadScene(currentScene); // SceneManager.LoadScene(0)괄호의 0은 인덱스를 의미함
-                                                                                        // 인덱스란? 요약하면 씬의 순서임 0은 첫번째 1은 두번째.....
+        SceneManager.LoadScene(currentScene); // SceneManager.LoadScene(0)괄호의 0은 인덱스를 의미함 인덱스란? 요약하면 씬의 순서임 0은 첫번째 1은 두번째.....
+                                                                                    // 새로운 씬 생성 방법: 원래있던 씬을 복사하거나 (컨트롤 D) 마우스 우클릭 create -> scene들어가면됨
+                                                                                    // 인덱스 설정 방법: 왼쪽상단 file -> Build Profiles -> scenes List에서 바꾸면됨
+
     }
 }
 
