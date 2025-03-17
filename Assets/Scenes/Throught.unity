@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: de0512b8bcb6e784193fd023f8837b2f, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -268,7 +268,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.032126203, y: -0.73290884, z: 0.03480863, w: 0.6786759}
-  m_LocalPosition: {x: 9.925784, y: 2.9302971, z: -8.194245}
+  m_LocalPosition: {x: 9.925784, y: 6.886297, z: -8.194247}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -703,7 +703,7 @@ Transform:
   m_GameObject: {fileID: 1472175372}
   serializedVersion: 2
   m_LocalRotation: {x: 0.032126203, y: -0.73290884, z: 0.03480863, w: 0.6786759}
-  m_LocalPosition: {x: 9.925784, y: 2.9302971, z: -8.194245}
+  m_LocalPosition: {x: 9.925784, y: 6.886297, z: -8.194247}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -805,21 +805,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1619557586536061628, guid: 611d044e2d1754f47a5410e4eb08cc18, type: 3}
-      propertyPath: mainEngine
-      value: 
-      objectReference: {fileID: 8300000, guid: 911f25e0cf88ea7468ed0fa75b4098c4, type: 3}
     - target: {fileID: 3342597859564898183, guid: 611d044e2d1754f47a5410e4eb08cc18, type: 3}
       propertyPath: m_Name
       value: Player Rocket
-      objectReference: {fileID: 0}
-    - target: {fileID: 5807738658071734033, guid: 611d044e2d1754f47a5410e4eb08cc18, type: 3}
-      propertyPath: m_Resource
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5807738658071734033, guid: 611d044e2d1754f47a5410e4eb08cc18, type: 3}
-      propertyPath: m_audioClip
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7241680127136300877, guid: 611d044e2d1754f47a5410e4eb08cc18, type: 3}
       propertyPath: m_LocalPosition.x
@@ -827,7 +815,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7241680127136300877, guid: 611d044e2d1754f47a5410e4eb08cc18, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.324
+      value: 5.28
       objectReference: {fileID: 0}
     - target: {fileID: 7241680127136300877, guid: 611d044e2d1754f47a5410e4eb08cc18, type: 3}
       propertyPath: m_LocalPosition.z
@@ -995,6 +983,6 @@ SceneRoots:
   - {fileID: 393404643}
   - {fileID: 3776407547043601955}
   - {fileID: 309673256}
-  - {fileID: 3259177853039743446}
   - {fileID: 5440073875990322852}
   - {fileID: 1611331063}
+  - {fileID: 3259177853039743446}

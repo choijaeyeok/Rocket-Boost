@@ -4,8 +4,10 @@ using UnityEngine.SceneManagement;
 public class CollisionHandler : MonoBehaviour
 {
     [SerializeField] float LevelLoadDelay = 2f;
-    [SerializeField] AudioClip success;
-    [SerializeField] AudioClip crash;
+    [SerializeField] AudioClip successSFX;// 변수 이름을 바꿀 때 같은 변수를 전부 한 번에 변경하는 단축키는 F2 또는 Ctrl + R, R
+    [SerializeField] AudioClip crashSFX;
+    [SerializeField] ParticleSystem successParticles;
+    [SerializeField] ParticleSystem crashParticles;
     
     AudioSource audioSource;
 
@@ -13,6 +15,7 @@ public class CollisionHandler : MonoBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
+
     }
     private void OnCollisionEnter(Collision other)//물체와 부딪히면 OnCollisionEnter() 메서드가 호출
     {
@@ -41,7 +44,9 @@ public class CollisionHandler : MonoBehaviour
         isControllable = false; //  if (!isControllable) { return; }는 isControllable = false;일 때만 실행되니깐 isControllable = false;가 필요함  
                                 //로켓의 상태를 명시적으로 멈추게 할 수 있어 충돌 후 소리 중복 재생을 방지할 수 있습니다.
                                 //   GetComponent<Movement>().enabled = false;는 로켓이 더 이상 움직이지 않게 되지만, 충돌 이벤트가 계속 감지됨
-        audioSource.PlayOneShot(success);
+        audioSource.Stop(); //이거 안쓰면 부딪히거나 Finish에 도착해도 부스터소리가 계속남
+        audioSource.PlayOneShot(successSFX);
+        successParticles.Play();
         GetComponent<Movement>().enabled = false; //내가 작성한 Movement 코드를 비활성화시켜 Finish에 도착하면 못 움직임
         Invoke("LoadNextLevel", LevelLoadDelay);//Finish에 도착 후 LevelLoadDelay가 2초니깐 2초뒤에 LoadNextLevel()매서드(다음 단계) 호출
     }
@@ -49,7 +54,9 @@ public class CollisionHandler : MonoBehaviour
     void StartCrashSequcence() //StartCrashSequcence() 컨트롤 . 눌러서 매서드 생성 클릭하면 나타남
     {
         isControllable = false;
-        audioSource.PlayOneShot(crash);
+        audioSource.Stop();
+        audioSource.PlayOneShot(crashSFX);
+        crashParticles.Play();
         GetComponent<Movement>().enabled = false;// 내가 작성한 Movement 코드를 비활성화시켜 물체와 부딪힌 후 못 움직임
         Invoke("ReloadLevel", LevelLoadDelay);// 부딪힌 후 LevelLoadDelay가 2초니깐 2초뒤에 ReloadLevel()매서드(재시작) 호출                                      
     }
