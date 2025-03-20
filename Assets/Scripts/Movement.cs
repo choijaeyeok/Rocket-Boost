@@ -73,7 +73,7 @@ public class Movement : MonoBehaviour
     {
         float rotaitioninput = rotation.ReadValue<float>();//ReadValue<float>()는 rotation이 현재 어떤 입력을 받고
                                                            //있는지 float 값으로 읽는 함수, 왼쪽: -1 오른쪽 +1
-        Debug.Log("here is our rotation value: " + rotaitioninput);
+        
         if(rotaitioninput < 0)
         {
             RotateRight();

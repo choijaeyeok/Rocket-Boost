@@ -1,5 +1,8 @@
 using System;
+using UnityEditor;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 public class CollisionHandler : MonoBehaviour
 {
@@ -12,15 +15,34 @@ public class CollisionHandler : MonoBehaviour
     AudioSource audioSource;
 
     bool isControllable = true;
+    bool isCollidable = true;
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
 
     }
+    private void Update()
+    {
+        RespondToDebugKeys();
+
+    }
+    void RespondToDebugKeys()
+    {
+        if (Keyboard.current.lKey.wasPressedThisFrame)//wasPressedThisFrame는 한번만 누른걸로 해줌
+                                                                                          //isPressed는 계속 눌린걸로 취급됨
+        {
+            LoadNextLevel();
+        }
+        if (Keyboard.current.cKey.wasPressedThisFrame)//c키가 눌렸는지 확인하는 함수
+        {
+            isCollidable = !isCollidable;
+            Debug.Log("C key was pressed");
+        }
+    }
     private void OnCollisionEnter(Collision other)//물체와 부딪히면 OnCollisionEnter() 메서드가 호출
     {
-        if (!isControllable) { return; }//isControllable 변수가 false일 때 OnCollisionEnter 함수의 실행을 즉시 중단하는 역할
-                                        //if문 안에서 return;이 실행되면, 그 함수는 바로 끝. 즉, 그 아래 코드들이 실행되지 않는다
+        if (!isControllable || !isCollidable) { return; }//isControllable 변수가 false일 때 OnCollisionEnter 함수의 실행을 즉시 중단하는 역할
+                                                         //if문 안에서 return;이 실행되면, OnCollisionEnter 함수는 실행 중단. 즉, 그 아래 코드들이 실행되지 않는다
         switch (other.gameObject.tag)
         {
             case "Friendly":
